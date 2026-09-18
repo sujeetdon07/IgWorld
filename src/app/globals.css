@@ -1,26 +1,428 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --bg-page: #fafaf9;
+  --bg-surface: #ffffff;
+  --bg-surface-secondary: #f4f4f6;
+  --bg-subtle: #f8fafc;
+  --bg-subtle-hover: #f1f5f9;
+  --border-subtle: #e4e4e7;
+  --border-hover: #d4d4d8;
+  --border-focus: #e1306c;
+
+  --text-primary: #09090b;
+  --text-secondary: #71717a;
+  --text-muted: #a1a1aa;
+
+  --accent-primary: #e1306c;
+  --accent-hover: #d0255f;
+  --accent-subtle: rgba(225, 48, 108, 0.08);
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Instagram Sunset & Vibrant Brand Palette */
+  --insta-gradient: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcaf45 100%);
+  --insta-sunset: linear-gradient(135deg, #e1306c 0%, #fd1d1d 50%, #f77737 100%);
+  --insta-purple-pink: linear-gradient(135deg, #833ab4 0%, #e1306c 100%);
+  --insta-cyan-blue: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --insta-amber-glow: rgba(247, 119, 55, 0.15);
+  --insta-pink-glow: rgba(225, 48, 108, 0.2);
+  --insta-purple-glow: rgba(131, 58, 180, 0.18);
+
+  --dock-bg: rgba(255, 255, 255, 0.92);
+  --dock-border: rgba(228, 228, 231, 0.85);
+  --dock-shadow: 0 10px 30px -5px rgba(225, 48, 108, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+
+  --tab-track-bg: #f4f4f6;
+  --tab-active-bg: #ffffff;
+  --tab-active-border: #e4e4e7;
+  --tab-active-text: #09090b;
+  --tab-inactive-text: #71717a;
+
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --footer-bg: #ffffff;
+  --card-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04), 0 1px 3px -1px rgba(0, 0, 0, 0.02);
+  --code-bg: #f4f4f6;
+
+  /* Legacy mappings */
+  --text-heading: var(--text-primary);
+  --text-body: var(--text-secondary);
+  --bg-surface-elevated: var(--bg-surface-secondary);
+  --bg-surface-glass: var(--dock-bg);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  color-scheme: dark;
+  --bg-page: #09090d;
+  --bg-surface: #111219;
+  --bg-surface-secondary: #171924;
+  --bg-subtle: rgba(255, 255, 255, 0.04);
+  --bg-subtle-hover: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-focus: #e1306c;
+
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --accent-primary: #e1306c;
+  --accent-hover: #d0255f;
+  --accent-subtle: rgba(225, 48, 108, 0.15);
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Instagram Sunset & Vibrant Brand Palette for Dark Mode */
+  --insta-gradient: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcaf45 100%);
+  --insta-sunset: linear-gradient(135deg, #e1306c 0%, #fd1d1d 50%, #f77737 100%);
+  --insta-purple-pink: linear-gradient(135deg, #833ab4 0%, #e1306c 100%);
+  --insta-cyan-blue: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --insta-amber-glow: rgba(247, 119, 55, 0.25);
+  --insta-pink-glow: rgba(225, 48, 108, 0.3);
+  --insta-purple-glow: rgba(131, 58, 180, 0.28);
+
+  --dock-bg: rgba(17, 18, 25, 0.88);
+  --dock-border: rgba(255, 255, 255, 0.12);
+  --dock-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(225, 48, 108, 0.18);
+
+  --tab-track-bg: #0d0e14;
+  --tab-active-bg: #1a1c28;
+  --tab-active-border: rgba(255, 255, 255, 0.14);
+  --tab-active-text: #fafafa;
+  --tab-inactive-text: #a1a1aa;
+
+  --nav-bg: rgba(9, 9, 13, 0.85);
+  --footer-bg: #09090d;
+  --card-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.4);
+  --code-bg: #0d0e14;
+
+  /* Legacy mappings */
+  --text-heading: var(--text-primary);
+  --text-body: var(--text-secondary);
+  --bg-surface-elevated: var(--bg-surface-secondary);
+  --bg-surface-glass: var(--dock-bg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.light-theme {
+  color-scheme: light;
+  --bg-page: #fafaf9;
+  --bg-surface: #ffffff;
+  --bg-surface-secondary: #f4f4f6;
+  --bg-subtle: #f8fafc;
+  --bg-subtle-hover: #f1f5f9;
+  --border-subtle: #e4e4e7;
+  --border-hover: #d4d4d8;
+  --border-focus: #e1306c;
+
+  --text-primary: #09090b;
+  --text-secondary: #71717a;
+  --text-muted: #a1a1aa;
+
+  --accent-primary: #e1306c;
+  --accent-hover: #d0255f;
+  --accent-subtle: rgba(225, 48, 108, 0.08);
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* Instagram Sunset & Vibrant Brand Palette */
+  --insta-gradient: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcaf45 100%);
+  --insta-sunset: linear-gradient(135deg, #e1306c 0%, #fd1d1d 50%, #f77737 100%);
+  --insta-purple-pink: linear-gradient(135deg, #833ab4 0%, #e1306c 100%);
+  --insta-cyan-blue: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --insta-amber-glow: rgba(247, 119, 55, 0.15);
+  --insta-pink-glow: rgba(225, 48, 108, 0.2);
+  --insta-purple-glow: rgba(131, 58, 180, 0.18);
+
+  --dock-bg: rgba(255, 255, 255, 0.92);
+  --dock-border: rgba(228, 228, 231, 0.85);
+  --dock-shadow: 0 10px 30px -5px rgba(225, 48, 108, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+
+  --tab-track-bg: #f4f4f6;
+  --tab-active-bg: #ffffff;
+  --tab-active-border: #e4e4e7;
+  --tab-active-text: #09090b;
+  --tab-inactive-text: #71717a;
+
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --footer-bg: #ffffff;
+  --card-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04), 0 1px 3px -1px rgba(0, 0, 0, 0.02);
+  --code-bg: #f4f4f6;
+
+  --text-heading: var(--text-primary);
+  --text-body: var(--text-secondary);
+  --bg-surface-elevated: var(--bg-surface-secondary);
+  --bg-surface-glass: var(--dock-bg);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-secondary);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+/* Semantic UI Utility Classes */
+/* Gradient Text Utilities */
+.gradient-text-insta {
+  background: linear-gradient(135deg, #e1306c 0%, #fd1d1d 45%, #f77737 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-sunset {
+  background: linear-gradient(135deg, #833ab4 0%, #e1306c 40%, #fd1d1d 75%, #fcaf45 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-purple-pink {
+  background: linear-gradient(135deg, #9333ea 0%, #e1306c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-cyan-blue {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ambient Aura Background Elements */
+.ambient-hero-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ambient-aura-pink {
+  position: absolute;
+  top: -15%;
+  left: 20%;
+  width: 500px;
+  height: 400px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(225, 48, 108, 0.18) 0%, rgba(225, 48, 108, 0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-aura 8s ease-in-out infinite alternate;
+}
+
+.ambient-aura-orange {
+  position: absolute;
+  top: -10%;
+  right: 15%;
+  width: 480px;
+  height: 380px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(247, 119, 55, 0.16) 0%, rgba(247, 119, 55, 0) 70%);
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-aura-delayed 10s ease-in-out infinite alternate;
+}
+
+.ambient-aura-purple {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  width: 520px;
+  height: 360px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(131, 58, 180, 0.12) 0%, rgba(131, 58, 180, 0) 70%);
+  filter: blur(75px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulse-aura {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+  100% { transform: scale(1.15) translate(20px, 15px); opacity: 1; }
+}
+
+@keyframes pulse-aura-delayed {
+  0% { transform: scale(1.1) translate(0, 0); opacity: 0.7; }
+  100% { transform: scale(0.95) translate(-25px, 20px); opacity: 0.95; }
+}
+
+/* Glassmorphic Dock Container */
+.glass-dock {
+  background-color: var(--dock-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--dock-border);
+  box-shadow: var(--dock-shadow);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.glass-dock:hover {
+  border-color: rgba(225, 48, 108, 0.28);
+}
+
+/* Vibrant Sunset Primary CTA Button */
+.btn-gradient-insta {
+  background: linear-gradient(135deg, #e1306c 0%, #fd1d1d 50%, #f77737 100%);
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px -3px rgba(225, 48, 108, 0.4), 0 2px 6px -1px rgba(253, 29, 29, 0.25);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-gradient-insta:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ea3374 0%, #ff2b2b 50%, #ff8345 100%);
+  box-shadow: 0 10px 28px -4px rgba(225, 48, 108, 0.55), 0 4px 10px -1px rgba(253, 29, 29, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-gradient-insta:active:not(:disabled) {
+  transform: translateY(0.5px) scale(0.99);
+}
+
+/* Interactive Vibrant Product Cards */
+.colorful-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.colorful-card:hover {
+  border-color: rgba(225, 48, 108, 0.3);
+  box-shadow: 0 8px 24px -6px rgba(225, 48, 108, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.product-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover {
+  border-color: var(--border-hover);
+}
+
+/* Brand Action Buttons */
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #ffffff !important;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.btn-tactile {
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.btn-tactile:active {
+  transform: scale(0.99);
+}
+
+.text-white-force {
+  color: #ffffff !important;
+}
+
+/* Subtle focus indicators */
+input:focus,
+input:focus-visible {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+/* Ad slot fixed placeholders for zero Cumulative Layout Shift (CLS) */
+.ad-container-leaderboard {
+  min-height: 90px;
+  max-width: 728px;
+  margin: 0 auto;
+}
+
+.ad-container-rectangle {
+  min-height: 250px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Clean minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
