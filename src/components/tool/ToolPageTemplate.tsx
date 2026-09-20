@@ -6,7 +6,7 @@ import { FaqAccordion } from "@/components/seo/FaqAccordion";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { AdSlot } from "@/components/monetization/AdSlot";
-import { TOOLS } from "@/lib/constants";
+import { TOOLS, SITE_URL } from "@/lib/constants";
 
 interface ToolPageTemplateProps {
   tool: ToolDefinition;
@@ -23,7 +23,7 @@ export function ToolPageTemplate({ tool, contentSection }: ToolPageTemplateProps
         type="tool"
         title={tool.title}
         description={tool.metaDescription}
-        url={`https://igworld.app/${tool.slug}`}
+        url={`${SITE_URL}/${tool.slug}`}
         faqs={tool.faqs}
       />
 

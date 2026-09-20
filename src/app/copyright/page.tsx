@@ -2,11 +2,18 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Copyright Policy | IgWorld",
+  title: "Copyright Policy",
   description:
     "Copyright information, creator rights protection, and intellectual property compliance at IgWorld.",
   alternates: {
-    canonical: "https://igworld.app/copyright",
+    canonical: "/copyright",
+  },
+  openGraph: {
+    title: "Copyright Policy",
+    description:
+      "Copyright information, creator rights protection, and intellectual property compliance at IgWorld.",
+    url: "/copyright",
+    type: "website",
   },
 };
 

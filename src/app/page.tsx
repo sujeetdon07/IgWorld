@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   Film,
@@ -19,7 +20,23 @@ import {
 import { DownloaderForm } from "@/components/downloader/DownloaderForm";
 import { FaqAccordion } from "@/components/seo/FaqAccordion";
 import { AdSlot } from "@/components/monetization/AdSlot";
-import { TOOLS } from "@/lib/constants";
+import { TOOLS, SITE_URL } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  title: "IgWorld — Download Instagram Reels, Videos, Stories & Photos in 1080p HD",
+  description:
+    "Free, fast, and secure Instagram downloader. Save Instagram Reels, Stories, Photos, Carousels, Profile Pictures, and IGTV videos in high resolution with original audio.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "IgWorld — Download Instagram Reels, Videos, Stories & Photos",
+    description:
+      "Save high-definition Instagram Reels, Videos, Photos, and Carousels online with zero quality loss and no login required.",
+    url: "/",
+    type: "website",
+  },
+};
 
 const HOME_FAQS = [
   {
@@ -108,7 +125,7 @@ const JSON_LD_DATA = {
     {
       "@type": "WebApplication",
       "name": "IgWorld - Instagram Media Downloader",
-      "url": "https://igworld.app",
+      "url": SITE_URL,
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "All (iOS, Android, Windows, macOS, Linux)",
       "offers": {

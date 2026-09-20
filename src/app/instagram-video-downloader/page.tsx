@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: TOOLS.video.metaDescription,
   keywords: TOOLS.video.keywords,
   alternates: {
-    canonical: `https://igworld.app/${TOOLS.video.slug}`,
+    canonical: `/${TOOLS.video.slug}`,
   },
   openGraph: {
     title: TOOLS.video.title,
     description: TOOLS.video.metaDescription,
-    url: `https://igworld.app/${TOOLS.video.slug}`,
+    url: `/${TOOLS.video.slug}`,
     type: "website",
   },
 };

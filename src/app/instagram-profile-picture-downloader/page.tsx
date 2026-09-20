@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: TOOLS.profile.metaDescription,
   keywords: TOOLS.profile.keywords,
   alternates: {
-    canonical: `https://igworld.app/${TOOLS.profile.slug}`,
+    canonical: `/${TOOLS.profile.slug}`,
   },
   openGraph: {
     title: TOOLS.profile.title,
     description: TOOLS.profile.metaDescription,
-    url: `https://igworld.app/${TOOLS.profile.slug}`,
+    url: `/${TOOLS.profile.slug}`,
     type: "website",
   },
 };

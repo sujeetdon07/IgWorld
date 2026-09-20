@@ -2,11 +2,18 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | IgWorld",
+  title: "Terms of Service",
   description:
     "Review the Terms of Service for IgWorld. Permitted use, acceptable use policy, and intellectual property disclaimers.",
   alternates: {
-    canonical: "https://igworld.app/terms-of-service",
+    canonical: "/terms-of-service",
+  },
+  openGraph: {
+    title: "Terms of Service",
+    description:
+      "Review the Terms of Service for IgWorld. Permitted use, acceptable use policy, and intellectual property disclaimers.",
+    url: "/terms-of-service",
+    type: "website",
   },
 };
 

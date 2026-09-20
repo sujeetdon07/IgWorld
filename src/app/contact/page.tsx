@@ -3,11 +3,18 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { Mail, Clock, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Us & Support | IgWorld",
+  title: "Contact Us & Support",
   description:
     "Get in touch with the IgWorld technical team for support, feature requests, partnership, or legal inquiries.",
   alternates: {
-    canonical: "https://igworld.app/contact",
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact Us & Support",
+    description:
+      "Get in touch with the IgWorld technical team for support, feature requests, partnership, or legal inquiries.",
+    url: "/contact",
+    type: "website",
   },
 };
 

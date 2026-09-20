@@ -3,10 +3,15 @@ import type { Metadata, Viewport } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { StructuredData } from "@/components/seo/StructuredData";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID;
-const GOOGLE_SITE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
+const rawGoogleVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+  "LV-pXfvIsZuJrA_gFCdNEvF63pNeA4ZxWAwMcInXoec";
+const googleVerificationToken = rawGoogleVerification.replace(/^google-site-verification=/, "");
 
 export const viewport: Viewport = {
   themeColor: "#fafaf9",
@@ -16,7 +21,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://igworld.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "IgWorld — Download Instagram Reels, Videos, Stories & Photos in 1080p HD",
     template: "%s | IgWorld",
@@ -41,21 +46,38 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "https://igworld.app",
+    canonical: "./",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://igworld.app",
+    url: SITE_URL,
     siteName: "IgWorld",
     title: "IgWorld — Download Instagram Reels, Videos, Stories & Photos",
     description:
       "Save high-definition Instagram Reels, Videos, Photos, and Carousels online with zero quality loss and no login required.",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "IgWorld — Instagram Media Downloader",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "IgWorld — Free Instagram Media Downloader",
     description: "Download Instagram Reels, Stories, Photos, and Videos in full 1080p HD.",
+    images: ["/logo.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/icon-192.png" }],
   },
   robots: {
     index: true,
@@ -68,11 +90,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: GOOGLE_SITE_VERIFICATION
-    ? {
-        google: GOOGLE_SITE_VERIFICATION,
-      }
-    : undefined,
+  verification: {
+    google: googleVerificationToken,
+  },
   manifest: "/manifest.json",
 };
 
@@ -101,7 +121,7 @@ export default function RootLayout({
           type="website"
           title="IgWorld — Instagram Media Downloader"
           description="Free online Instagram downloader for Reels, Stories, Carousels, Photos, and Videos in HD."
-          url="https://igworld.app"
+          url={SITE_URL}
         />
         <Navbar />
         <main className="flex-1">{children}</main>

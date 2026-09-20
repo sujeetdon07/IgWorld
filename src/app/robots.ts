@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,9 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/icons/"],
+        disallow: ["/api/"],
       },
     ],
-    sitemap: "https://igworld.app/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

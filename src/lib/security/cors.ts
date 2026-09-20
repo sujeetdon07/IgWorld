@@ -1,7 +1,10 @@
 import { NextRequest } from "next/server";
+import { SITE_URL } from "@/lib/constants";
 
 // Default allowed origins
 const DEFAULT_ALLOWED = [
+  "https://igworld-chi.vercel.app",
+  SITE_URL,
   "https://igworld.app",
   "https://www.igworld.app",
   "http://localhost:3000",

@@ -3,11 +3,18 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { Lock, Server } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | IgWorld",
+  title: "Privacy Policy",
   description:
     "Learn about IgWorld's privacy policy. We do not store media files, collect personal credentials, or track user downloads.",
   alternates: {
-    canonical: "https://igworld.app/privacy-policy",
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy",
+    description:
+      "Learn about IgWorld's privacy policy. We do not store media files, collect personal credentials, or track user downloads.",
+    url: "/privacy-policy",
+    type: "website",
   },
 };
 

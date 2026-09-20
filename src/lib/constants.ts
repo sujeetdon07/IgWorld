@@ -1,9 +1,24 @@
 import { ToolDefinition } from "./types/api";
 
+const rawSiteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  "https://igworld-chi.vercel.app";
+
+export const SITE_URL = rawSiteUrl.replace(/\/+$/, "");
+
+const getDomainFromUrl = (url: string): string => {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return "igworld-chi.vercel.app";
+  }
+};
+
 export const APP_CONFIG = {
   name: "IgWorld",
-  domain: "igworld.app",
-  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://igworld.app",
+  domain: getDomainFromUrl(SITE_URL),
+  baseUrl: SITE_URL,
   apiBaseUrl: "/api/v1",
   supportEmail: "support@igworld.app",
 };

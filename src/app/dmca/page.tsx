@@ -2,11 +2,18 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "DMCA Takedown Notice & Policy | IgWorld",
+  title: "DMCA Takedown Notice & Policy",
   description:
     "Digital Millennium Copyright Act (DMCA) compliance, takedown instructions, and designated copyright agent information.",
   alternates: {
-    canonical: "https://igworld.app/dmca",
+    canonical: "/dmca",
+  },
+  openGraph: {
+    title: "DMCA Takedown Notice & Policy",
+    description:
+      "Digital Millennium Copyright Act (DMCA) compliance, takedown instructions, and designated copyright agent information.",
+    url: "/dmca",
+    type: "website",
   },
 };
 
