@@ -36,6 +36,10 @@ export function AdSlot({ type = "leaderboard", className = "", adSlotId }: AdSlo
     }
   }, [adClient, effectiveSlotId]);
 
+  if (!adClient) {
+    return null;
+  }
+
   return (
     <aside
       className={`my-8 px-4 flex flex-col items-center justify-center select-none ${className}`}
@@ -52,27 +56,15 @@ export function AdSlot({ type = "leaderboard", className = "", adSlotId }: AdSlo
           isLeaderboard ? "ad-container-leaderboard min-h-[90px] max-w-[728px]" : "ad-container-rectangle min-h-[250px] max-w-[300px]"
         }`}
       >
-        {adClient ? (
-          /* Live Google AdSense Unit */
-          <ins
-            className="adsbygoogle w-full block text-center"
-            style={{ display: "block" }}
-            data-ad-client={adClient}
-            {...(effectiveSlotId ? { "data-ad-slot": effectiveSlotId } : {})}
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        ) : (
-          /* Development / Pre-Approval Placeholder */
-          <div className="w-full h-full min-h-[90px] rounded-xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-subtle)]/60 flex flex-col items-center justify-center p-3 text-center text-xs text-[var(--text-muted)]">
-            <span className="font-semibold text-[11px] text-[var(--text-secondary)]">
-              {isLeaderboard ? "Google AdSense Responsive Leaderboard (728 × 90)" : "Google AdSense Rectangle (300 × 250)"}
-            </span>
-            <span className="text-[10px] text-[var(--text-muted)] mt-0.5">
-              Set <code className="font-mono text-[#e1306c]">NEXT_PUBLIC_GOOGLE_ADSENSE_ID</code> in <code className="font-mono">.env.local</code> to activate live ads
-            </span>
-          </div>
-        )}
+        {/* Live Google AdSense Unit */}
+        <ins
+          className="adsbygoogle w-full block text-center"
+          style={{ display: "block" }}
+          data-ad-client={adClient}
+          {...(effectiveSlotId ? { "data-ad-slot": effectiveSlotId } : {})}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
       </div>
     </aside>
   );
