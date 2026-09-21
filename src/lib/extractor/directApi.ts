@@ -283,7 +283,34 @@ export async function fetchUserInfo(
 
   const cleanUser = username.replace(/^[@"“”]+/, "").replace(/["“”]+$/, "").trim();
 
-  // 1. Resolve user PK / numeric ID
+  // 1. Try web_profile_info first with session headers (most direct and complete)
+  try {
+    const apiUrl = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(cleanUser)}`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    const response = await fetch(apiUrl, {
+      signal: controller.signal,
+      headers: {
+        ...headers,
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        Referer: `https://www.instagram.com/${cleanUser}/`,
+      },
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      const data = await response.json();
+      const user = data?.data?.user;
+      if (user && (user.id || user.pk)) return user;
+    }
+  } catch {
+    // Fall through to ID-based lookup
+  }
+
+  // 2. Resolve user PK / numeric ID
   let userId: string | null = null;
   let rawFullName: string | undefined;
 
@@ -291,6 +318,7 @@ export async function fetchUserInfo(
     const profileUrl = `https://www.instagram.com/${encodeURIComponent(cleanUser)}/`;
     const fbRes = await fetch(profileUrl, {
       headers: {
+        ...headers,
         "User-Agent": "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       },
@@ -315,7 +343,7 @@ export async function fetchUserInfo(
     // Fall through
   }
 
-  // 2. Query mobile app user info API (/users/{userId}/info/) with session
+  // 3. Query mobile app user info API (/users/{userId}/info/) with session
   if (userId) {
     try {
       const apiUrl = `https://i.instagram.com/api/v1/users/${userId}/info/`;
@@ -350,32 +378,6 @@ export async function fetchUserInfo(
     } catch {
       // Fall through
     }
-  }
-
-  // 3. Fallback: web_profile_info on www.instagram.com with session
-  try {
-    const apiUrl = `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(cleanUser)}`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-    const response = await fetch(apiUrl, {
-      signal: controller.signal,
-      headers: {
-        ...headers,
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-        Referer: `https://www.instagram.com/${cleanUser}/`,
-      },
-    });
-
-    clearTimeout(timeoutId);
-
-    if (response.ok) {
-      const data = await response.json();
-      return data?.data?.user || null;
-    }
-  } catch {
-    // Fall through
   }
 
   return null;

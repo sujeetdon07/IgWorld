@@ -19,6 +19,14 @@ export async function GET(request: NextRequest) {
       version: "1.0.0",
       service: "IgWorld Media Downloader API",
       timestamp: new Date().toISOString(),
+      sessionConfigured: Boolean(
+        process.env.INSTAGRAM_SESSION_ID ||
+        process.env.INSTAGRAM_SESSION_IDS ||
+        process.env.INSTAGRAM_COOKIE
+      ),
+      proxyConfigured: Boolean(
+        process.env.HTTP_PROXY || process.env.HTTPS_PROXY
+      ),
       supportedEndpoints: [
         "/api/v1/download",
         "/api/v1/stream",

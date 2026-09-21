@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. Parse JSON Body
-    let body: { url?: string; tool?: ToolType };
+    let body: { url?: string; tool?: ToolType; type?: ToolType; username?: string };
     try {
       body = await request.json();
     } catch {
@@ -62,7 +62,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { url, tool } = body;
+    const { url } = body;
+    const tool = body.tool || body.type;
 
     if (!url || typeof url !== "string" || !url.trim()) {
       return NextResponse.json(

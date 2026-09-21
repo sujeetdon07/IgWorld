@@ -25,7 +25,7 @@ export function getCorsHeaders(request: NextRequest): Record<string, string> {
   if (!origin) {
     return {
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-App-Version, Range",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-App-Version, Range, X-Instagram-Session",
       "Access-Control-Expose-Headers": "Content-Range, Content-Length, Content-Disposition",
     };
   }
@@ -35,7 +35,7 @@ export function getCorsHeaders(request: NextRequest): Record<string, string> {
     return {
       "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-App-Version, Range",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, X-App-Version, Range, X-Instagram-Session",
       "Access-Control-Expose-Headers": "Content-Range, Content-Length, Content-Disposition",
       "Access-Control-Allow-Credentials": "true",
       Vary: "Origin",
