@@ -219,39 +219,28 @@ export async function extractFromEmbed(
             quality: "Full HD Video (1080p MP4)",
           });
         } else {
-          // Photo Post or Multi-Slide Photo Carousel
-          const allImageUrls = new Set<string>();
-          if (imageUrl) allImageUrls.add(imageUrl);
-
-          // Extract all EmbeddedMediaImage tags
-          const allImgTags = [...html.matchAll(/class=["'][^"']*EmbeddedMediaImage[^"']*["'][^>]*src=["']([^"']+)["']/gi)];
-          for (const m of allImgTags) {
-            const clean = cleanInstagramCdnUrl(m[1]);
-            if (clean.startsWith("http")) allImageUrls.add(clean);
+          // Single Photo Post (multi-slide carousels are handled above via hasSidecar)
+          // If this was requested as a Reel and embed didn't contain a video stream, continue to other strategies
+          if (isReel) {
+            continue;
           }
 
-          // Extract display_resources across blocks
-          const allDispRes = [...html.matchAll(/"display_resources":\s*\[([^\]]+)\]/g)];
-          for (const block of allDispRes) {
-            const srcs = [...block[1].matchAll(/"src":\s*"([^"]+)"/g)];
-            if (srcs.length > 0) {
-              const best = cleanInstagramCdnUrl(srcs[srcs.length - 1][1]);
-              if (best.startsWith("http")) allImageUrls.add(best);
-            }
-          }
+          const primaryImg = imageUrl || (
+            html.match(/class=["'][^"']*EmbeddedMediaImage[^"']*["'][^>]*src=["']([^"']+)["']/i)?.[1]
+              ? cleanInstagramCdnUrl(html.match(/class=["'][^"']*EmbeddedMediaImage[^"']*["'][^>]*src=["']([^"']+)["']/i)![1])
+              : null
+          );
 
-          let slideIdx = 1;
-          for (const img of allImageUrls) {
+          if (primaryImg && primaryImg.startsWith("http")) {
             mediaItems.push({
-              id: `${shortcode}_slide_${slideIdx}`,
+              id: shortcode,
               type: "image",
-              thumbnailUrl: img,
-              downloadUrl: `/api/v1/stream?url=${encodeURIComponent(img)}&type=jpg&filename=instagram_${shortcode}_slide_${slideIdx}.jpg`,
-              directUrl: img,
+              thumbnailUrl: primaryImg,
+              downloadUrl: `/api/v1/stream?url=${encodeURIComponent(primaryImg)}&type=jpg&filename=instagram_${shortcode}.jpg`,
+              directUrl: primaryImg,
               extension: "jpg",
               quality: "Original High Resolution (JPG)",
             });
-            slideIdx++;
           }
         }
       }
